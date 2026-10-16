@@ -154,3 +154,5 @@ reflect that.
   you want to accept the current state as the new trusted baseline.
 - This tool detects *content* tampering via hash mismatches — it does
   not track permission or ownership changes on their own.
+
+ “This README was generated with the assistance of AI.”
