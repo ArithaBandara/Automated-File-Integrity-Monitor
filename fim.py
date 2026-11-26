@@ -1,4 +1,20 @@
 #!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import sys
+import time
+from pathlib import Path
+
+from rich.console import Console
+from rich.panel import Panel
+from rich.table import Table
+from watchdog.observers import Observer
+
+import fim_core
+
+console = Console()
+
 """
 fim.py
 Automated File Integrity Monitor (FIM) -- CLI entry point.
@@ -18,22 +34,6 @@ Usage examples:
 See fim_core.py for the hashing, comparison, and alerting engine.
 """
 
-from __future__ import annotations
-
-import argparse
-import sys
-import time
-from pathlib import Path
-
-from rich.console import Console
-from rich.panel import Panel
-from rich.table import Table
-from watchdog.observers import Observer
-
-import fim_core
-
-console = Console()
-
 
 # --------------------------------------------------------------------------
 # Argument parsing
@@ -46,7 +46,6 @@ def build_parser() -> argparse.ArgumentParser:
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
 
-    # Options shared by every subcommand -------------------------------
     common = argparse.ArgumentParser(add_help=False)
     common.add_argument(
         "directory", type=Path, help="Target directory to protect."
@@ -57,7 +56,6 @@ def build_parser() -> argparse.ArgumentParser:
              f"(default: {fim_core.DEFAULT_BASELINE_FILE}).",
     )
 
-    # Options shared by commands that can raise alerts -------------------
     webhook_common = argparse.ArgumentParser(add_help=False)
     webhook_common.add_argument(
         "--webhook", type=str, default=None,
