@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Optional
 
 import requests
+
 from watchdog.events import FileSystemEventHandler
 
 """
